@@ -15,8 +15,10 @@
                 break;
         }
         //Controllo se l'utente vuole eliminare i propri dati
-    if($_GET['delete'])
+    if($_GET['delete'] == true)
     {
+        
+        include_once("../include/database-conn.php");
         echo '
                 <title> Output </title>
                 <link rel="stylesheet" href="../Assets/css/style.css">
@@ -31,17 +33,22 @@
              </div>
         </body>
     </html>';
-        
+    
+    $query = $pdo->query("DELETE FROM Curriculum.Dati WHERE Cognome LIKE '".$_GET['Cognome']."' AND Nome LIKE '".$_GET['Nome']."' ");
+    
     $query = $pdo->query("SELECT * FROM Curriculum.Dati WHERE Cognome LIKE '".$_GET['Cognome']."' AND Nome LIKE '".$_GET['Nome']."' ");
-    while($row = $query->fetch()) {
-        $ID = $row['id'];
-    }
+    
+        while($row = $query->fetch()) {
+        $ID = $row['ID'];
+        }
+        
+     $query2 = $pdo->query("SELECT * FROM Curriculum.Dati WHERE ID LIKE '".$ID."' "); 
+     
      //Eseguo una seconda query dove prende le informazioni lavorative   
      if($query2->rowCount()!= 0)
-        $query2 = $pdo->query("DELETE * FROM Curriculum.eLavorativa WHERE eID LIKE '".$ID."'");
+        $query2 = $pdo->query("DELETE FROM Curriculum.eLavorativa WHERE eID LIKE '".$ID."' ");
 
-    $query = $pdo->query("DELETE FROM Curriculum.Dati WHERE Cognome LIKE '".$_GET['Cognome']."' AND Nome LIKE '".$_GET['Nome']."' AND nascita LIKE '".$_GET['data']."'");
-
+        
         return;
     }
 
