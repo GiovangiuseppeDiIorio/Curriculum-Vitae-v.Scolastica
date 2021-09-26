@@ -8,3 +8,12 @@ I linguaggi usati sono:
  - PHP
 
 Per poter usare di questo progetto dovete configurarlo ad hoc per le vostre esigenze, e siete "costretti" ad usare un database.
+
+Abbiamo usato:
+ - fPDF
+ - tfPDF
+ - RTFlite
+
+Gli autori del progetto:
+ - Kirievi (https://github.com/Kiriaevi)
+ - Giovangiuseppe Di Iorio ()
