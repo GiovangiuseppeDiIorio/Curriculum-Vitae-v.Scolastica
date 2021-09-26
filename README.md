@@ -31,6 +31,7 @@ If you want to use this project you have to manually modify the values in the so
   - fPDF
   - tfPDF
   - RTFlite
+
 The authors of the project are: 
  - Kiriaevi (Tieri Francesco) -> https://github.com/Kiriaevi
  - Giovangiuseppe Di Iorio -> https://github.com/GiovangiuseppeDiIorio/
