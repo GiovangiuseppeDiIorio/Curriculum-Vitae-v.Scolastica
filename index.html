@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie edge">
+
+    <!-- <link rel="shortcut icon" type="image/x-icon" href="./image/favicon.ico"> -->
+    <meta name="author" content="Tieri Francesco, Di Iorio Giovangiuseppe">
+    <meta name="description" content="Curriculum Vitae">
+
+    <!-- Stile del sito -->
+    <link rel="stylesheet" href="Assets/css/style.css">
+    <title>Curriculum Vitae</title>
+   <!-- Logica del sito -->
+   <script src="engine/js/logic.js"></script>  
+</head>
+
+<body>
+    
+
+    <div class="container-items">  
+        <div class="container">
+    <header>
+        <h1>Benvenuto nel form per il Curriculum vitae</h1>
+        <p>Script creato da Tieri Francesco e Di Iorio Giovangiuseppe</p>
+       <!-- EASTER EGG <a href="home/index.php">Vai alla Home</a>-->
+    </header>
+    
+    
+    <h3 style="text-align:left;">Inserisci i tuoi dati qui!</h3><br>
+    
+    <!-- form -->
+    <form action="engine/insert-item.php" method="post">
+        
+        <!-- Name, surname, address -->
+        <input type="text" id="fname" name="fname" placeholder ="Inserisci il nome..." required="" autocomplete="off" minlength="4" maxlength="16" value="Nome"><br>
+        <input type="text" id="lname" name="lname" placeholder="Inserisci il cognome..." required="" autocomplete="off" minlength="4" maxlength="16" value="Cognome"><br>
+        <input type="text" id="address" name="address" placeholder="Inserisci la via di residenza..." required="" autocomplete="off" minlength="8" maxlength="32" value="Residenza"><br>
+        
+        <!-- Telephone, mail, nation, birthday-->
+        <input type="tel" id="telephone" name="telephone" placeholder="Inserisci il numero di telefono..." require="" autocomplete="off" minlength="8"  maxlength="15" value="3212243"><br>
+        
+        <input type="text" id="mail" name="mail" placeholder="Inserisci la mail..." required="" autocomplete="off" value="email@email.it"><br>
+        <input type="text" id="nation" name="nation" placeholder="Inserisci la nazionalità... Italia" require="" autocomplete="off" ><br>
+        
+        <input type="date" id="birthday" name="birthday" placeholder="Inserisci il compleanno... 00/00/0000" required="" autocomplete="off"><br>
+        
+
+        <!-- Radio / Sex -->
+        <input type="radio" id="sex" name="sex" value="maschio" required="" autocomplete="off">
+        <label for="sex">Maschio</label><br>
+        <input type="radio" id="sex" name="sex" value="femmina" required="" autocomplete="off">
+        <label for="sex">Femmina</label><br>
+        <input type="radio" id="sex" name="sex" value="non-binario" required="" autocomplete="off">
+        <label for="sex">Non binario</label><br><br>
+
+      <!--  <input type="file" id="img" name="img" accept="image/*" value="Inserisci la tua immagine..." required="" autocomplete="off"><br><br>-->
+
+        <h3>Aggiungere esperienza lavorativa?</h3>
+        <input type="checkbox" name="lavorativa"  onclick="display()" />
+      
+
+        <!-- Area esperienza lavorativa -->
+        <div id="lavoro">
+        <h3>Sezione esperienza lavorativa</h3>
+        
+
+        <!-- data job -->
+        <label id="datestartjob">Inserisci la data d'inizio del lavoro...<input type="date" id="datestartjob" name="datestartjob" placeholder="Inserisci la data d'inizio del lavoro..." autocomplete="off"></label><br>
+
+        <label id="datefinejob">Inserisci la data fine lavoro...<input type="date" id="datefinejob"
+            name="datefinejob" placeholder="Inserisci la data fine lavoro..." 
+            autocomplete="off"></label><br>
+
+        <!-- name or address of industry -->
+        <input type="text" id="nameinc" name="nameinc" placeholder="Inserisci nome o indirizzo dell’azienda o datore di lavoro..." required=""
+             minlength="8" maxlength="64" autocomplete="off"><br>
+
+        <!-- type of industry -->
+        <input type="text" id="typeinc" name="typeinc"
+            placeholder="Inserisci il tipo di azienda o settore..." required="" autocomplete="off"
+            minlength="8" maxlength="64"><br>
+
+        <!-- type of work -->
+        <input type="text" id="typework" name="typework" placeholder="Inserisci il tipo di lavoro..." required=""
+            autocomplete="off" minlength="8" maxlength="64"><br>
+
+        <!-- type of responsability --> 
+        <input type="text" id="responsability" name="responsability" placeholder="Tipo di responsabilità.." required=""
+            autocomplete="off" minlength="8" maxlength="64"><br>
+        <!-- Text area description -->
+        <textarea id="description" name="description" placeholder="Inserisci una breve descrizione" required="" autocomplete="off"  rows="16" cols="100%"></textarea>
+       
+</div>
+ <!-- Submit + reset -->
+ <input type="submit" onclick="sendForm()" value="Invia"><br>   <input type="reset" value="Reimposta"><br/>
+</form>
+    <!-- footer -->
+    <footer>Tutti i diritti sono riservati. Il form è stato creato da studenti della 5C, 23 Settembre 2021</footer>
+    </div>
+</div>  
+</body>
+
+
+
+</html>
