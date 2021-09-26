@@ -25,7 +25,7 @@ USED LANGUAGES:
  - CSS
  - Javascript
  - PHP
-If you want to use this project you have to manually modify the values in the source code, and to manually create a database 
+ If you want to use this project you have to manually modify the values in the source code, and to manually create a database 
  
   We worked with these frameworks: 
   - fPDF
