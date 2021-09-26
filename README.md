@@ -16,4 +16,4 @@ Abbiamo usato:
 
 Gli autori del progetto:
  - Kirievi (https://github.com/Kiriaevi)
- - Giovangiuseppe Di Iorio ()
+ - Giovangiuseppe Di Iorio (https://github.com/GiovangiuseppeDiIorio/)
