@@ -1,108 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="it">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie edge">
+    <!-- Bootstrap REQUIRED -->
+	<link rel="stylesheet" href="Assets/css/bootstrap.css">
+	<link rel="stylesheet" href="Assets/css/fontawesome.css">
+	<link rel="stylesheet" href="Assets/css/style_buttons.css">
+	<script src="egine/js/bootstrap.js"></script>
+		
+    <script src="engine/js/bootstrap.js" ></script>
+	<script src="engine/js/jquery.js"></script>
+	<script src="engine/js/logic.js"></script>
+	
+    <!-- FAVICON SVG-->
+    <link rel="icon" type="image/svg+xml" sizes="32x32" id="iconfav" href="http://francescotieri.zapto.org/favicon_light.svg">
+    <title>Inserisci i tuoi dati - Licei Corigliano
+	</title>	
+		
+  </head>
 
-    <!-- <link rel="shortcut icon" type="image/x-icon" href="./image/favicon.ico"> -->
-    <meta name="author" content="Tieri Francesco, Di Iorio Giovangiuseppe">
-    <meta name="description" content="Curriculum Vitae">
+<!--QUI COMINCIA IL SITO --> 
+<body onload="initialize()">
+	<div class="container">
+<!-- Back to top button -->
+<a style="text-decoration: none;" id="button"></a>
+<a style="text-decoration: none;" id="buttonBottom"></a>
+  
+<header class="text-center">
+	<h1 class="display-2">Benvenuto nel form per il Curriculum vitae</h1> <br />
+	<p class="blockquote-footer">Script creato da Tieri Francesco e Di Iorio Giovangiuseppe</p>
+	<!-- EASTER EGG <a href="home/index.php">Vai alla Home</a>-->
+</header>
 
-    <!-- Stile del sito -->
-    <link rel="stylesheet" href="Assets/css/style.css">
-    <title>Curriculum Vitae</title>
-   <!-- Logica del sito -->
-   <script src="engine/js/logic.js"></script>  
-</head>
 
-<body>
-    
 
-    <div class="container-items">  
-        <div class="container">
-    <header>
-        <h1>Benvenuto nel form per il Curriculum vitae</h1>
-        <p>Script creato da Tieri Francesco e Di Iorio Giovangiuseppe</p>
-       <!-- EASTER EGG <a href="home/index.php">Vai alla Home</a>-->
-    </header>
-    
-    
-    <h3 style="text-align:left;">Inserisci i tuoi dati qui!</h3><br>
-    
-    <!-- form -->
-    <form action="engine/insert-item.php" method="post">
-        
-        <!-- Name, surname, address -->
-        <input type="text" id="fname" name="fname" placeholder ="Inserisci il nome..." required="" autocomplete="off" minlength="4" maxlength="16" value="Nome"><br>
-        <input type="text" id="lname" name="lname" placeholder="Inserisci il cognome..." required="" autocomplete="off" minlength="4" maxlength="16" value="Cognome"><br>
-        <input type="text" id="address" name="address" placeholder="Inserisci la via di residenza..." required="" autocomplete="off" minlength="8" maxlength="32" value="Residenza"><br>
-        
-        <!-- Telephone, mail, nation, birthday-->
-        <input type="tel" id="telephone" name="telephone" placeholder="Inserisci il numero di telefono..." require="" autocomplete="off" minlength="8"  maxlength="15" value="3212243"><br>
-        
-        <input type="text" id="mail" name="mail" placeholder="Inserisci la mail..." required="" autocomplete="off" value="email@email.it"><br>
-        <input type="text" id="nation" name="nation" placeholder="Inserisci la nazionalità... Italia" require="" autocomplete="off" ><br>
-        
-        <input type="date" id="birthday" name="birthday" placeholder="Inserisci il compleanno... 00/00/0000" required="" autocomplete="off"><br>
-        
 
-        <!-- Radio / Sex -->
-        <input type="radio" id="sex" name="sex" value="maschio" required="" autocomplete="off">
-        <label for="sex">Maschio</label><br>
-        <input type="radio" id="sex" name="sex" value="femmina" required="" autocomplete="off">
-        <label for="sex">Femmina</label><br>
-        <input type="radio" id="sex" name="sex" value="non-binario" required="" autocomplete="off">
-        <label for="sex">Non binario</label><br><br>
 
-      <!--  <input type="file" id="img" name="img" accept="image/*" value="Inserisci la tua immagine..." required="" autocomplete="off"><br><br>-->
+<!-- form -->
+<form class="container border" action="engine/insert-item.php" method="post">
+	<br><h3 class="text-center display-6" style="text-align:left;">Inserisci i tuoi dati qui!</h3><br>
+	<!-- Name, surname, address -->
+	<br><input class="form-control" type="text" id="fname" name="fname" placeholder="Inserisci il nome..." required="" autocomplete="off"
+		 ><br>
+	<input class="form-control" type="text" id="lname" name="lname" placeholder="Inserisci il cognome..." required="" autocomplete="off"
+		 ><br>
+	<input class="form-control" type="text" id="address" name="address" placeholder="Inserisci la via di residenza..." required=""
+		autocomplete="off"  maxlength="32"><br>
 
-        <h3>Aggiungere esperienza lavorativa?</h3>
-        <input type="checkbox" name="lavorativa"  onclick="display()" />
-      
+	<!-- Telephone, mail, nation, birthday-->
+	<input class="form-control" type="tel" id="telephone" name="telephone" placeholder="Inserisci il numero di telefono..." require=""
+		autocomplete="off"  maxlength="15"><br>
 
-        <!-- Area esperienza lavorativa -->
-        <div id="lavoro">
-        <h3>Sezione esperienza lavorativa</h3>
-        
+	<input class="form-control" type="text" id="mail" name="mail" placeholder="Inserisci la mail..." required="" autocomplete="off"><br>
+	<input class="form-control" type="text" id="nation" name="nation" placeholder="Inserisci la nazionalità... Italia" require=""
+		autocomplete="off"><br>
 
-        <!-- data job -->
-        <label id="datestartjob">Inserisci la data d'inizio del lavoro...<input type="date" id="datestartjob" name="datestartjob" placeholder="Inserisci la data d'inizio del lavoro..." autocomplete="off"></label><br>
+	<input class="input-group-text" type="date" id="birthday" name="birthday" placeholder="Inserisci il compleanno... 00/00/0000" required=""
+		autocomplete="off"><br><br>
 
-        <label id="datefinejob">Inserisci la data fine lavoro...<input type="date" id="datefinejob"
-            name="datefinejob" placeholder="Inserisci la data fine lavoro..." 
-            autocomplete="off"></label><br>
 
-        <!-- name or address of industry -->
-        <input type="text" id="nameinc" name="nameinc" placeholder="Inserisci nome o indirizzo dell’azienda o datore di lavoro..." required=""
-             minlength="8" maxlength="64" autocomplete="off"><br>
+	<!-- Selezione / Sex -->
+Sesso <select class="form-select" name="sex" id="sex">
+		<option value="maschio">Maschio</option>
+		<option value="femmina">Femmina</option>
+		<option value="non-binario">Non binario</option>
+	</select>
+	<br><br>
 
-        <!-- type of industry -->
-        <input type="text" id="typeinc" name="typeinc"
-            placeholder="Inserisci il tipo di azienda o settore..." required="" autocomplete="off"
-            minlength="8" maxlength="64"><br>
+	<!--  <input type="file" id="img" name="img" accept="image/*" value="Inserisci la tua immagine..." required="" autocomplete="off"><br><br>-->
 
-        <!-- type of work -->
-        <input type="text" id="typework" name="typework" placeholder="Inserisci il tipo di lavoro..." required=""
-            autocomplete="off" minlength="8" maxlength="64"><br>
 
-        <!-- type of responsability --> 
-        <input type="text" id="responsability" name="responsability" placeholder="Tipo di responsabilità.." required=""
-            autocomplete="off" minlength="8" maxlength="64"><br>
-        <!-- Text area description -->
-        <textarea id="description" name="description" placeholder="Inserisci una breve descrizione" required="" autocomplete="off"  rows="16" cols="100%"></textarea>
-       
-</div>
- <!-- Submit + reset -->
- <input type="submit" onclick="sendForm()" value="Invia"><br>   <input type="reset" value="Reimposta"><br/>
+	<!-- Area esperienza lavorativa -->
+	<div id="lavoro">
+		<h3 class="display-3">Sezione esperienza lavorativa</h3>
+
+
+		<!-- data job -->
+		<label id="datestartjob">Inserisci la data d'inizio del lavoro...<input class="form-control" type="date" id="datestartjob"
+				name="datestartjob[]" placeholder="Inserisci la data di inizio  lavoro" autocomplete="off"></label><br>
+
+		<label id="datefinejob">Inserisci la data fine lavoro...<input class="form-control" type="date" id="datefinejob" name="datefinejob[]"
+				placeholder="Inserisci la data di fine  lavoro" autocomplete="off"></label><br><br>
+
+		<!-- name or address of industry -->
+		<input class="form-control" type="text" id="nameinc" name="nameinc[]"
+			placeholder="Inserisci nome o indirizzo dell’azienda o datore di lavoro..." required="" 
+			 autocomplete="off"><br>
+
+		<!-- type of industry -->
+		<input class="form-control" type="text" id="typeinc" name="typeinc[]" placeholder="Inserisci il tipo di azienda o settore..."
+			required="" autocomplete="off"  ><br>
+
+		<!-- type of work -->
+		<input class="form-control" type="text" id="typework" name="typework[]" placeholder="Inserisci la tipologia dell'impiego" required=""
+			autocomplete="off"  ><br>
+
+		<!-- type of responsability -->
+		<input class="form-control" type="text" id="responsability" name="responsability[]" placeholder="Tipo di responsabilità.."
+			required="" autocomplete="off"  ><br>
+		<!-- Text area description -->
+		<textarea class="form-control" class="form-control" id="description" name="description[]" placeholder="Inserisci una breve descrizione" required=""
+			autocomplete="off" rows="16" cols="100%"></textarea>
+		<br /><br /> <br />
+
+
+		<div id="more"></div>
+		<h3 class="display-6 text-end">Aggiungere più esperienze lavorative?</h3>
+		<input class="form-control btn btn-dark" type="button" name="lavorativa" onclick="moreLavorativa()" value="Aggiungi esperienza extra!" />
+		<div id="lingua"></div>
+		<br><br><h3 class="display-3">Lingua principale</h3>
+		<input class="form-control" type="text" name="linguaPrincipale" value="Italiano">
+		<h3 class="display-6 text-end">Conosci qualche lingua extra?</h3>
+		<input class="form-control btn btn-dark" type="button" name="lingue" onclick="moreLingua()" value="Aggiungi lingua extra!" />
+		<br><br><h1 class="display-3">Capacità e competenze</h1>
+		<h3 class="display-6">Attenzione</h3>
+		<p>Immettere "Nessuna" nelle competenze da lasciare vuote </p>
+		<h3 class="display-6">Capacità e competenze relazionali</h3>
+		<textarea class="form-control" id="competenzeRel" name="competenzeRel" placeholder="Vivere e lavorare con altre persone, in 
+			ambiente multiculturale, occupando posti 
+			in cui la comunicazione è importante e in 
+			situazioni in cui è essenziale lavorare in 
+			squadra (ad es. cultura e sport), ecc." required="" autocomplete="off" rows="16" cols="100%"></textarea>
+		<h3 class="display-6">Capacità e competenze organizzative</h3>
+		<textarea class="form-control" id="competenzeOrg" name="competenzeOrg" placeholder="Ad es. coordinamento e amministrazione 
+			di persone, progetti, bilanci; sul posto di 
+			lavoro, in attività di volontariato (ad es. 
+			cultura e sport), a casa, ecc." required="" autocomplete="off" rows="16" cols="100%"></textarea>
+		<h3 class="display-6">Capacità e competenze tecniche</h3>
+		<textarea class="form-control" id="competenzeTec" name="competenzeTec" placeholder="Con computer, attrezzature specifiche, 
+			macchinari, ecc" required="" autocomplete="off" rows="16" cols="100%"></textarea>
+		<h3 class="display-6">Capacità e competenze artistiche</h3>
+		<textarea class="form-control" id="competenzeArt" name="competenzeArt" placeholder="Musica, scrittura, disegno ecc." required=""
+			autocomplete="off" rows="16" cols="100%"></textarea>
+		<h3 class="display-6">Altre capacità e competenze</h3>
+		<textarea class="form-control" id="altreCompetenze" name="altreCompetenze" placeholder="Competenze non precedentemente 
+			indicate." required="" autocomplete="off" rows="16" cols="100%"></textarea><br />
+		<input class="form-control" type="text" placeholder="Inserire le patenti separate con una virgola, es: B1,A1,A2" name="patente"
+			id="patente">
+
+
+		<!-- ISTRUZIONE E FORMAZIONE -->
+		<h3 class="display-3">Sezione istruzione e formazione</h3>
+
+
+		<!-- data istruzione -->
+		<label id="dateStartSchool">Inserisci la data d'inizio della formazione<input class="form-control  input-group-text" type="date" id="dateStartSchool"
+				name="dateStartSchool[]" placeholder="Inserisci la data d'inizio della formazione"
+				autocomplete="off"></label><br>
+
+		<label id="dateEndSchool">Inserisci la data della fine della formazione<input class="form-control input-group-text" type="date" id="dateEndSchool"
+				name="dateEndSchool[]" placeholder="Inserisci la data della fine della formazione"
+				autocomplete="off"></label><br><br>
+
+		<!-- Tipo di istituzione -->
+		<input class="form-control" type="text" id="typeschool" name="typeschool[]" placeholder="Tipo di istruzione o formazione" required=""
+			  autocomplete="off"><br>
+
+		<!-- Principali materie -->
+		<input class="form-control" type="text" id="principaliMaterie" name="principaliMaterie[]"
+			placeholder="Principali materie/abilità professionali oggetto dello studio " required="" autocomplete="off"
+			 ><br>
+
+		<!-- qualifica conseguita -->
+		<input class="form-control" type="text" id="qualifica" name="qualifica[]" placeholder="Qualifica conseguita" required=""
+			autocomplete="off"  ><br>
+
+		<h3 class="display-6 text-end">Aggiungere più formazioni scolastiche?</h3>
+		<input class="btn btn-dark form-control" type="button" name="scolastiche" onclick="moreScolastiche()" value="Aggiungi formazione extra!" />
+		<div id="istruzione"></div>
+	</div>
+	<!-- Submit + reset -->
+	<br><input class="btn btn-primary form-control" type="submit" onclick="sendForm()" value="Invia"><br><br>
 </form>
-    <!-- footer -->
-    <footer>Tutti i diritti sono riservati. Il form è stato creato da studenti della 5C, 23 Settembre 2021</footer>
+</div><br />
+<!-- Footer -->
+
+    <div class="footer-dark">
+        <footer>
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6 col-md-3 item">
+                        <h3>Autori</h3>
+                        <ul>
+                            <li><a href="#">Tieri Francesco</a></li>
+                            <li><a href="#">Di Iorio Giovangiuseppe</a></li>
+							<li><a href="#">Rosario Damiano Zicaro</a></li>
+                        </ul>
+                    </div>
+                   
+                    <div class="col-md-6 item text">
+                        <h3>Informazioni</h3>
+                        <p>Script creato da Tieri Francesco e Di Iorio Giovangiuseppe attraverso l'uso di framework come tFPDF (fork di fPDF) e PhpRtfLite.</p>
+                    </div>
+                </div>
+                <p class="copyright"><a target="_blank" href="license.html">Licenze</a></p>
+            </div>
+        </footer>
     </div>
-</div>  
+
+
 </body>
-
-
-
 </html>

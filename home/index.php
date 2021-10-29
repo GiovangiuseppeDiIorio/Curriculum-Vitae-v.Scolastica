@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="it">
 
@@ -37,12 +39,11 @@ try {
     <th>Cognome</th>
     <th>Data di nascita</th>
     <th>PDF</th>
-    <th>RTF</th>
     <th>Elimina voce</th>';
         while($row = $query->fetch())
         {
             echo '
-            <tr><td>'.$row['Nome'].'</td><td> '.$row['Cognome'].'</td><td>'.$row['nascita'].'</td><td><a href="../engine/get-item.php?Cognome='.$row['Cognome'].'&Nome='.$row['Nome'].'&data='.$row['nascita'].'&type=pdf">PDF</a></td><td> <a href="../engine/get-item.php?Cognome='.$row['Cognome'].'&Nome='.$row['Nome'].'&data='.$row['nascita'].'&type=rtf">RTF</a></td><td><a  href="../engine/get-item.php?Cognome='.$row['Cognome'].'&Nome='.$row['Nome'].'&data='.$row['nascita'].'&delete">Elimina</a></td></tr>';
+            <tr><td>'.$row['Nome'].'</td><td> '.$row['Cognome'].'</td><td>'.$row['nascita'].'</td><td><a href="../engine/get-item.php?Cognome='.$row['Cognome'].'&Nome='.$row['Nome'].'&data='.$row['nascita'].'&type=pdf">PDF</a></td><td><a  href="../engine/get-item.php?Cognome='.$row['Cognome'].'&Nome='.$row['Nome'].'&data='.$row['nascita'].'&delete=true">Elimina</a></td></tr>';
         }
         echo '
         

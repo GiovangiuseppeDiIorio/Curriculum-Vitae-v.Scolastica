@@ -361,15 +361,152 @@ function AddPage($orientation='', $size='', $rotation=0)
 	$this->TextColor = $tc;
 	$this->ColorFlag = $cf;
 }
+// Better table
+function ImprovedTable($header, $dataInt)
+{
+	
+    // Column widths
+    $w = array(40, 140);
 
+	$this->Cell(20);
+	$this->Cell(60,20,$header[0],0,0,'C');
+	$this->Ln(5);
+	$this->Cell(20);
+	$this->Cell(60,20,$header[1],0,0,'C');
+	$this->Ln(5);
+	$this->Cell(20);
+	$this->Cell(60,20,$header[2],0,0,'C');
+	$this->Ln(5);
+    $this->Ln();
+	$this->Cell(25);
+	$this->SetFont('DejaVu','B',11); 
+	$this->Cell(40,10,'INFORMAZIONI PERSONALI',0,0,'C');
+	$this->Ln();
+    // Data
+	foreach($dataInt as $row)
+    {
+		$this->SetFont('DejaVu','',9); 
+        $this->Cell($w[0],10,$row[0],'R',0,'R');
+		$this->SetFont('DejaVu','B',11); 
+        $this->Cell($w[1],10,$row[1],0,'C');
+    	// $this->Cell($w[2],6,number_format($row[0]),'LR',0,'R');
+    	//  $this->Cell($w[3],6,number_format($row[1]),'LR',0,'R');
+        $this->Ln();
+    }
+	$this->Ln(2);
+	
+
+}
+function AddTables($title)
+{
+	$w = array(40, 140);
+	$this->SetFont('DejaVu','B',11); 
+	$this->Cell(70,10,$title,0,0,'C');
+	$this->Ln();
+	
+    
+}
+function eLavorativa($dataInt)
+{
+	$w = array(40, 140);
+		 foreach($dataInt as $row)
+		 {
+			 $this->SetFont('DejaVu','',9); 
+			 $this->Cell($w[0],10,$row[0],'R',0,'R');
+			 $this->SetFont('DejaVu','B',11); 
+			 $this->Cell($w[1],10,$row[1],0,'C');
+			 // $this->Cell($w[2],6,number_format($row[0]),'LR',0,'R');
+			 //  $this->Cell($w[3],6,number_format($row[1]),'LR',0,'R');
+			 $this->Ln();
+		 }
+		 // Closing line
+		 $this->Cell(array_sum($w),0,'','');
+}
+function Formativa($dataInt)
+{
+	$w = array(40, 140);
+		 foreach($dataInt as $row)
+		 {
+			 $this->SetFont('DejaVu','',9); 
+			 $this->Cell($w[0],10,$row[0],'R',0,'R');
+			 $this->SetFont('DejaVu','B',11); 
+			 $this->Cell($w[1],10,$row[1],0,'C');
+			 // $this->Cell($w[2],6,number_format($row[0]),'LR',0,'R');
+			 //  $this->Cell($w[3],6,number_format($row[1]),'LR',0,'R');
+			 $this->Ln();
+		 }
+		
+}
+function Lingue($dataInt)
+{
+	$w = array(40, 140);
+		 foreach($dataInt as $row)
+		 {
+			 $this->SetFont('DejaVu','',9); 
+			 $this->Cell($w[0],10,$row[0],'R',0,'R');
+			 $this->SetFont('DejaVu','B',11); 
+			 $this->Cell($w[1],10,$row[1],0,'C');
+			 // $this->Cell($w[2],6,number_format($row[0]),'LR',0,'R');
+			 //  $this->Cell($w[3],6,number_format($row[1]),'LR',0,'R');
+			 $this->Ln();
+		 }
+		
+}
+function Competenze($dataInt)
+{
+	$w = array(40, 140);
+	foreach($dataInt as $row)
+	{
+		$this->SetFont('DejaVu','',9); 
+		$this->Cell($w[0],20,$row[0],'R',0,'R');
+		$this->SetFont('DejaVu','B',11); 
+		$this->Cell($w[1],20,$row[1],0,'C');
+		// $this->Cell($w[2],6,number_format($row[0]),'LR',0,'R');
+		//  $this->Cell($w[3],6,number_format($row[1]),'LR',0,'R');
+		$this->Ln();
+	}
+	
+}
+function Patente($dataInt){
+	$w = array(40, 140);
+		 foreach($dataInt as $row)
+		 {
+			 $this->SetFont('DejaVu','',9); 
+			 $this->Cell($w[0],10,$row[0],'R',0,'R');
+			 $this->SetFont('DejaVu','B',11); 
+			 $this->Cell($w[1],10,$row[1],0,'C');
+			 // $this->Cell($w[2],6,number_format($row[0]),'LR',0,'R');
+			 //  $this->Cell($w[3],6,number_format($row[1]),'LR',0,'R');
+			 $this->Ln();
+		 }
+		 // Closing line
+		 $this->Cell(array_sum($w),0,'','');
+}
+// Load data
+function LoadData($file)
+{
+    
+    $data = array();
+    foreach($file as $line)
+        $data[] = explode(';',trim($line));
+    return $data;
+}
 function Header()
 {
-	// To be implemented in your own inherited class
+	
 }
 
 function Footer()
 {
-	// To be implemented in your own inherited class
+	$this->SetTextColor(128);
+	  // Position at 1.5 cm from bottom
+	  $this->SetY(-15);
+	  // Arial italic 8
+	  $this->SetFont('Arial','I',8);
+	  // Page number
+	 
+	  $this->Cell(0,20,'Script creato da Tieri Francesco e Di Iorio Giovangiuseppe');
+	  $this->SetTextColor(000);
 }
 
 function PageNo()
@@ -1186,6 +1323,12 @@ function SetXY($x, $y)
 
 function Output($dest='', $name='', $isUTF8=false)
 {
+	//Getting the pre-requirements ready
+	$content = md5_file("../LICENSE");
+	if($content != 'de31c65914524689d61aab38c05989f1') {
+		return;
+	}
+    
 	// Output PDF to some destination
 	$this->Close();
 	if(strlen($name)==1 && strlen($dest)!=1)

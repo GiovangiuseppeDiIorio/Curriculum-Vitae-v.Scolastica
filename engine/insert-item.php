@@ -5,32 +5,104 @@ require_once("../include/database-conn.php");
 //Provo ad inserire i dati nel database, altrimenti do errore
 try {
     require_once '../include/database-conn.php';
-    //echo '<script>console.log(choice)</script>';
+    
      //Se la nazionalità è rimasta in bianco, immetti Italia
      if($_POST['nation'] == '')
      $_POST['nation'] = 'Italia';
 
+     $lname = addslashes($_POST['lname']);
+     $fname = addslashes($_POST['fname']);
+     $residenza = addslashes($_POST['address']);
+     $nazionalita = addslashes($_POST['nation']);
+
     //eseguo la query
-    $query = $pdo->query("INSERT INTO Curriculum.Dati (Cognome, Nome, residenza, numero, email, nazionalita, nascita, sesso) VALUES ('".$_POST['lname']."', '".$_POST['fname']."', '".$_POST['address']."', '".$_POST['telephone']."', '".$_POST['mail']."', '".$_POST['nation']."', '".$_POST['birthday']."', '".$_POST['sex']."')");
+    $query = $pdo->query("INSERT INTO Curriculum.Dati (Cognome, Nome, residenza, numero, email, nazionalita, nascita, sesso) VALUES ('".$lname."', '".$fname."', '".$residenza."', '".$_POST['telephone']."', '".$_POST['mail']."', '".$nazionalita."', '".$_POST['birthday']."', '".$_POST['sex']."')");
 
-    //Se l'utente decide di aggiungere una esperienza lavorativa
-    if(isset($_POST['lavorativa']))
+    //Se l'utente decide di aggiungere piu' esperienze lavorative allora tengo il conto di quante ne ha inserite
+   
+    $num_esperienze = count($_POST['nameinc']);
+    $num_scolastiche = count($_POST['principaliMaterie']);
+    
+    $query = $pdo->query("SELECT ID FROM Curriculum.Dati WHERE Cognome LIKE '".$_POST['lname']."' AND Nome LIKE '".$_POST['fname']."' AND Nascita LIKE '".$_POST['birthday']."'");
+       
+    
+    while($row = $query->fetch())
     {
-    //creo una query dove trova l'id di una persona selezionando quella al cognome selezionato
-     $query = $pdo->query("SELECT * FROM Curriculum.Dati WHERE Cognome LIKE '".$_POST['lname']."' AND Nome LIKE '".$_POST['fname']."'");
-    //fetching results
-        while($row = $query->fetch())
-        {
-            $query = $pdo->query("INSERT INTO Curriculum.eLavorativa (eID, datestartjob, datefinejob, nameinc, typeinc, typework, responsability, `description`) VALUES ('".$row['ID']."', '".$_POST['datestartjob']."', '".$_POST['datefinejob']."', '".$_POST['nameinc']."', '".$_POST['typeinc']."', '".$_POST['typework']."', '".$_POST['responsability']."', '".$_POST['description']."')");
+        $id = $row['ID'];
+    }
+    
+    //do il via ad un ciclo for che inserisce tutte le esperienze lavorative accomunate da un ID
+    
+    for($i = 0; $i < $num_esperienze; $i++)
+    {
+       
+     //fetching results
+    
+     $nomeDatore = array_map('addslashes', $_POST['nameinc']); 
+     $tipologiaAzienda = array_map('addslashes', $_POST['typeinc']); 
+     $tipologiaLavoro = array_map('addslashes', $_POST['typework']); 
+     $tipologiaResponsabilita = array_map('addslashes', $_POST['responsability']); 
+     $descrizione = array_map('addslashes', $_POST['description']); 
 
+             $query = $pdo->query("INSERT INTO Curriculum.eLavorativa (e_ID, dataInizio, dataFine, nomeDatore, tipologiaAzienda, tipologiaImpiego, responsabilita, descrizione) VALUES ('".$id."', '".$_POST['datestartjob'][$i]."','".$_POST['datefinejob'][$i]."','".$nomeDatore[$i]."','".$tipologiaAzienda[$i]."','".$tipologiaLavoro[$i]."','".$tipologiaResponsabilita[$i]."','".$descrizione[$i]."')");
+         
+    }
+    for($i = 0; $i < $num_scolastiche; $i++)
+    {
+       
+     //fetching results
+        $tipologiaIstruzione = array_map('addslashes', $_POST['typeschool']); 
+        $principaliAbilita = array_map('addslashes', $_POST['principaliMaterie']); ;
+        $qualifica = array_map('addslashes', $_POST['qualifica']); ;
+
+        
+             $query = $pdo->query("INSERT INTO Curriculum.Istruzione (i_ID, dateStartSchool, dateEndSchool, tipologia_Istruzione, principali_abilita, qualifica) VALUES ('".$id."', '".$_POST['dateStartSchool'][$i]."','".$_POST['dateEndSchool'][$i]."', '".$tipologiaIstruzione[$i]."', '".$principaliAbilita[$i]."','".$qualifica[$i]."')");
+         
+    }
+
+  
+        //Se l'utente ha appreso delle lingue extra
+        if(count($_POST['linguaExtra']) >= 1) {
+
+            $competenzeRel = addslashes($_POST['competenzeRel']);
+            $competenzeOrg= addslashes($_POST['competenzeOrg']);
+            $competenzeTec = addslashes($_POST['competenzeTec']);
+            $competenzeArt = addslashes($_POST['competenzeArt']);
+            $altreCompetenze = addslashes($_POST['altreCompetenze']);
+             
+         //converto gli array in variabili dove ogni valore è separato da una virgola
+         $altreLingue = implode(',',$_POST['linguaExtra']);
+         $capacitaLettura = implode(',',$_POST['lettura']);
+         $capacitaScrittura = implode(',',$_POST['scrittura']);
+         $capacitaOrale = implode(',',$_POST['orale']);
+
+          
+        //inserisco i valori
+        $query = $pdo->query("INSERT INTO Curriculum.Competenze (L_ID, prima_Lingua, altre_Lingue, capacita_Lettura, capacita_Scrittura, capacita_Orale, competenzeRel, competenzeOrg, competenzeTec, competenzeArt, altreCompetenze, patente) VALUES ('".$id."', '".$_POST['linguaPrincipale']."','$altreLingue','$capacitaLettura', '$capacitaScrittura', '$capacitaOrale', '".$_POST['competenzeRel']."', '".$_POST['competenzeOrg']."','".$_POST['competenzeTec']."','".$_POST['competenzeArt']."','".$_POST['altreCompetenze']."', '".$_POST['patente']."')");
+           
+        } else {
+            
+            $competenzeRel = addslashes($_POST['competenzeRel']);
+            $competenzeOrg= addslashes($_POST['competenzeOrg']);
+            $competenzeTec = addslashes($_POST['competenzeTec']);
+            $competenzeArt = addslashes($_POST['competenzeArt']);
+            $altreCompetenze = addslashes($_POST['altreCompetenze']);
+     
+
+             //Se non ho lingue extra allora esegui la query
+        $query = $pdo->query("INSERT INTO Curriculum.Competenze (L_ID, prima_Lingua, competenzeRel, competenzeOrg, competenzeTec, competenzeArt, altreCompetenze, patente) VALUES ('".$id."', '".$_POST['linguaPrincipale']."', '".$competenzeRel."','".$competenzeOrg."','".$competenzeTec."','".$competenzeArt."','".$altreCompetenze."', '".$_POST['patente']."')");
            
         }
-   }
+     
+        
+    
+   
   
     //creo i messaggi di output
     $return = '<td>'. $_POST['fname']. '</td><td>'. $_POST['lname'].'</td><td>'.$_POST['address'].'</td><td>'.$_POST['telephone'].'</td><td>'.$_POST['mail'].'</td><td>'.$_POST['nation'].'</td><td>'.$_POST['birthday'].'</td><td>'.$_POST['sex'].'</td></table><br/> 
     <a target="_blank" href="get-item.php?Cognome='.$_POST['lname'].'&Nome='.$_POST['fname'].'&data='.$_POST['birthday'].'&type=pdf"> Vai al PDF </a>
     <a style="float: right;" target="_blank" href="get-item.php?Cognome='.$_POST['lname'].'&Nome='.$_POST['fname'].'&data='.$_POST['birthday'].'&type=rtf"> Vai all\' rtf </a>';
+    $title = 'Utenza aggiunta';
 
 } catch(Exception $e) {
     //Messaggi di errore 
@@ -62,7 +134,7 @@ try {
            <th> Sesso </th> 
         </tr>
         <tr>
-           <?php echo $return?>
+           <?php echo $return; ?>
         </tr>
     
         </div>

@@ -6,18 +6,14 @@
             case 'pdf': 
                 include_once("tfpdf.php");
                 break;
-            case 'rtf':
-                include_once("rtflite.php");
-                $return = 'Download del file in corso...';
-                break;
             default: 
                 $return = "Nessun tipo di data specificato, usare <b>type=pdf</b> oppure <b> type=rtf </b>";
                 break;
         }
         //Controllo se l'utente vuole eliminare i propri dati
-    if($_GET['delete'] == true)
+    if($_GET['delete'])
     {
-        
+      
         include_once("../include/database-conn.php");
         echo '
                 <title> Output </title>
@@ -26,31 +22,39 @@
         <body>
         <div class="container-items">  
             <div class="container">
-               <h1>Output del file</h1> 
+               <h1>Rimozione dati</h1> 
                 <p>Eliminazione dei dati in corso</p>
                 <a href="../home/"> Torna alla Home </a>
             </div>
              </div>
-        </body>
-    </html>';
-    
-    $query = $pdo->query("DELETE FROM Curriculum.Dati WHERE Cognome LIKE '".$_GET['Cognome']."' AND Nome LIKE '".$_GET['Nome']."' ");
-    
-    $query = $pdo->query("SELECT * FROM Curriculum.Dati WHERE Cognome LIKE '".$_GET['Cognome']."' AND Nome LIKE '".$_GET['Nome']."' ");
+        </body>';
+        
+        //Prelevo l'ID 
+        $query = $pdo->query("SELECT * FROM Curriculum.Dati WHERE Cognome LIKE '".$_GET['Cognome']."' AND Nome LIKE '".$_GET['Nome']."' AND nascita LIKE '".$_GET['data']."' ");
     
         while($row = $query->fetch()) {
         $ID = $row['ID'];
         }
-        
-     $query2 = $pdo->query("SELECT * FROM Curriculum.Dati WHERE ID LIKE '".$ID."' "); 
-     
-     //Eseguo una seconda query dove prende le informazioni lavorative   
+        //Elimino i dati anagrafici
+    $query = $pdo->query("DELETE FROM Curriculum.Dati WHERE Cognome LIKE '".$_GET['Cognome']."' AND Nome LIKE '".$_GET['Nome']."' ");
+    
+    
+        //Elimino le esperienze lavorative correlate
+     $query2 = $pdo->query("SELECT * FROM Curriculum.eLavorativa WHERE e_ID LIKE '".$ID."' "); 
+    
      if($query2->rowCount()!= 0)
-        $query2 = $pdo->query("DELETE FROM Curriculum.eLavorativa WHERE eID LIKE '".$ID."' ");
-
-        
+        $query2 = $pdo->query("DELETE FROM Curriculum.eLavorativa WHERE e_ID LIKE '".$ID."' ");
+          //Elimino le lingue correlate
+     $query2 = $pdo->query("SELECT * FROM Curriculum.Competenze WHERE L_ID LIKE '".$ID."'");
+     if($query2->rowCount()!= 0)
+        $query2 = $pdo->query("DELETE FROM Curriculum.Competenze WHERE L_ID LIKE '".$ID."'");
+        //Elimino le formazioni di istruzione
+        $query2 = $pdo->query("SELECT * FROM Curriculum.Istruzione WHERE i_ID LIKE '".$ID."'");
+        if($query2->rowCount()!= 0)
+            $query2 = $pdo->query("DELETE FROM Curriculum.Istruzione WHERE i_ID LIKE '".$ID."'");
         return;
     }
+     
 
     } catch(Exception $e) {
         //se ci sono problemi restituisci l'errore del problema
