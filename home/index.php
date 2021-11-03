@@ -24,7 +24,12 @@
 
 
 <?php 
+session_start();
+    if(!isset($_SESSION['username']))
+    {
+        header('Location: ../engine/login.php');
 
+    }
 try {
     //Richiedo la connessione
     require_once("../include/database-conn.php");
