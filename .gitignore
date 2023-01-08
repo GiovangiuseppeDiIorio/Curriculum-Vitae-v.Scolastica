@@ -63,7 +63,7 @@
 *.max
 
 # Font
-*.ttf
-*.txt
-*.rtf
-*.svg
+.ttf
+.txt
+.rtf
+.svg
