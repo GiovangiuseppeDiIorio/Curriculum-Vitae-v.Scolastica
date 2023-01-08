@@ -64,3 +64,6 @@
 
 # Font
 *.ttf
+*.txt
+*.rtf
+*.svg
